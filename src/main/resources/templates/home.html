@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Twitter Clone</title>
+</head>
+<body>
+<h1>Главная страница</h1>
+
+<!-- Форма для добавления твита -->
+<form action="/addTweet" method="post">
+    <textarea name="content" rows="40" cols="50" placeholder="Напишите твит..." required></textarea><br>
+    <button type="submit">Отправить</button>
+</form>
+
+<h2>Твиты</h2>
+<ul>
+    <!-- Отображаем все твиты -->
+    <li th:each="tweet : ${tweets}">
+        <p th:text="${tweet.content}">Твит</p>
+    </li>
+</ul>
+</body>
+</html>
+
+<!--В этом файле мы будем выводить твиты и добавлять форму для нового твита.-->
