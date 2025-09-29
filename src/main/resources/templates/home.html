@@ -8,7 +8,7 @@
 
 <!-- Форма для добавления твита -->
 <form action="/addTweet" method="post">
-    <textarea name="content" rows="40" cols="50" placeholder="Напишите твит..." required></textarea><br>
+    <textarea name="content" rows="4" cols="50" placeholder="Напишите твит..." required></textarea><br>
     <button type="submit">Отправить</button>
 </form>
 
@@ -17,9 +17,17 @@
     <!-- Отображаем все твиты -->
     <li th:each="tweet : ${tweets}">
         <p th:text="${tweet.content}">Твит</p>
+
+        <!-- Кнопка для удаления -->
+        <form th:action="@{/deleteTweet/{id}(id=${tweet.id})}" method="post">
+            <button type="submit">Удалить</button>
+        </form>
+
+        <!-- Кнопка для редактирования -->
+        <form th:action="@{/editTweet/{id}(id=${tweet.id})}" method="get">
+            <button type="submit">Редактировать</button>
+        </form>
     </li>
 </ul>
 </body>
 </html>
-
-<!--В этом файле мы будем выводить твиты и добавлять форму для нового твита.-->

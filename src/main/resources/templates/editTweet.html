@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Редактирование твита</title>
+</head>
+<body>
+<h1>Редактировать твит</h1>
+
+<form action="/saveEditedTweet" method="post">
+    <input type="hidden" name="id" th:value="${tweet.id}">
+    <textarea name="content" rows="4" cols="50" placeholder="Измените твит..." required th:text="${tweet.content}"></textarea><br>
+    <button type="submit">Сохранить изменения</button>
+</form>
+
+<a href="/">Назад</a>
+</body>
+</html>

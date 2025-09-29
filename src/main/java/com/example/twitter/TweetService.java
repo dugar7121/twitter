@@ -18,5 +18,14 @@ public class TweetService {
     public List<Tweet> getAllTweets() {
         return tweetRepository.findAll();
     }
+
+    public void deleteTweet(Long id) {
+        tweetRepository.deleteById(id);
+    }
+
+    public Tweet getTweetById(Long id) {
+        return tweetRepository.findById(id).orElse(null);
+    }
 }
+
 //отвечает за добавление и получение твитов. Убедимся, что в нем есть метод для получения всех твитов.

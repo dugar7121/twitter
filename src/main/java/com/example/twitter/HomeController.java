@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Controller
 public class HomeController {
@@ -15,18 +16,37 @@ public class HomeController {
 
     @GetMapping("/")
     public String homePage(Model model) {
-        // Загружаем все твиты из базы данных
         model.addAttribute("tweets", tweetService.getAllTweets());
-        return "home"; // Это будет имя HTML-шаблона
+        return "home";
     }
 
     @PostMapping("/addTweet")
     public String addTweet(@RequestParam String content) {
-        // Создаем новый твит
         Tweet tweet = new Tweet();
         tweet.setContent(content);
         tweetService.saveTweet(tweet);
-        return "redirect:/"; // Перенаправляем на главную страницу после добавления
+        return "redirect:/";
+    }
+
+    // Новый метод для редактирования твита
+    @GetMapping("/editTweet/{id}")
+    public String editTweet(@PathVariable Long id, Model model) {
+        Tweet tweet = tweetService.getTweetById(id);
+        model.addAttribute("tweet", tweet);
+        return "editTweet"; // Шаблон для редактирования твита
+    }
+
+    @PostMapping("/saveEditedTweet")
+    public String saveEditedTweet(@RequestParam Long id, @RequestParam String content) {
+        Tweet tweet = tweetService.getTweetById(id);
+        tweet.setContent(content);
+        tweetService.saveTweet(tweet); // Сохраняем изменения
+        return "redirect:/";
+    }
+
+    @GetMapping("/deleteTweet/{id}")
+    public String deleteTweet(@PathVariable Long id) {
+        tweetService.deleteTweet(id);
+        return "redirect:/";
     }
 }
-//Этот контроллер будет отвечать за отображение главной страницы и обработку запросов для создания твитов.
